@@ -495,7 +495,7 @@ vmprint_helper(pagetable_t pagetable, uint64 level, uint64 va) {
   else if (level == 1) sz = 512 * PGSIZE;
   else sz = PGSIZE;
   for (int i = 0; i < 512; i++, va += sz) {
-    pte_t pte = pagetable[i];
+    pte_t pte = *(pagetable + i);
     if ((pte & PTE_V) == 0) continue;
     for (int j = 0; j < 3 - level; ++j) printf(" ..");
     printf("%p: pte %p pa %p\n", (void *) va, (void *) pte, (void *) PTE2PA(pte));
